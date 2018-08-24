@@ -20,11 +20,11 @@
 			
 	<script>
 		// 차트 그리기	
-		function render_chart(year, total, max, el){
+		function render_chart(year, total, max, el, type){
 			var chart = bb.generate({
 				bindto: el,	// 요소명
 				data: {
-					type: "line",
+					type: type,
 					x: 'x',	// x축으로 지정할 칼럼명
 					columns: [
 						year,
@@ -50,8 +50,8 @@
 				});
 				console.log(total, max, year);
 				
-				render_chart(year, total, max, '#chart');
-				render_chart(year, total, max, '#chart2');
+				render_chart(year, total, max, '#chart', "line");
+				render_chart(year, total, max, '#chart2', "spline");
 				
 			});		
 			
