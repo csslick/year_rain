@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>년간 강수량 시각화</title>
+	<!-- 제이쿼리 -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
+	<!-- Load D3.js -->
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+
+	<!-- Load billboard.js with style -->
+	<script src="lib/billboard.min.js"></script>
+	<link rel="stylesheet" href="lib/billboard.min.css">	
+</head>
+<body>
+
+	<h1>년간 강수량</h1>
+	<div id="chart"></div>	
+	<div id="chart2"></div>	
+			
+	<script>
+		// 차트 그리기	
+		function render_chart(year, total, max, el){
+			var chart = bb.generate({
+				bindto: el,	// 요소명
+				data: {
+					type: "line",
+					x: 'x',	// x축으로 지정할 칼럼명
+					columns: [
+						year,
+						max, total
+					]
+				}
+			});			
+		}
+		
+		$(function(){
+			// csv 데이터 불러오기
+			d3.csv('seoul_rain2.csv', function(err, data){
+				// 배열의 첫번째는 컬럼명
+				var total = ['년간 강수량'];
+				var max = ['최대 강수량']
+				var year = ['x'];	// 년도
+				
+				// 데이터 배열을 추가
+				$.each(data, function(key, val){
+					total.push(val.total); // 강수량 y축
+					max.push(val.max);	// 최대 강수량 y축
+					year.push(val.year); // 년도 x축
+				});
+				console.log(total, max, year);
+				
+				render_chart(year, total, max, '#chart');
+				render_chart(year, total, max, '#chart2');
+				
+			});		
+			
+		});
+		
+		
+	</script>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+</body>
+</html>
